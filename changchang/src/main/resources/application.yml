@@ -1,3 +1,21 @@
 spring:
     application:
         name: changchang
+    datasource:
+        url: jdbc:mysql://localhost:3306/chang?characterEncoding=UTF-8
+        username: root
+        password: smongs1102
+        driver-class-name: com.mysql.cj.jdbc.Driver
+    jpa:
+        hibernate:
+            ddl-auto: update
+        show-sql: true
+
+server:
+    port: 8080
+
+logging:
+    level:
+        org:
+            springframework:
+                security: DEBUG # Spring Security 로그를 디버그 레벨로 설정 (필요시)
