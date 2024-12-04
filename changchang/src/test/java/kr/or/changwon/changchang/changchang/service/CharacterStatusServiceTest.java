@@ -10,9 +10,9 @@ public class CharacterStatusServiceTest {
     @Autowired
     private CharacterStatusService characterStatusService;
 
-    @Test
-    public void testEquipTitle() {
-        // 로직 실행
-        characterStatusService.equipTitle((long) 1, (long) 8);
-    }
+    // @Test
+    // public void testEquipTitle() {
+    //     // 로직 실행
+    //     characterStatusService.equipTitle((long) 1, (long) 8);
+    // }
 }

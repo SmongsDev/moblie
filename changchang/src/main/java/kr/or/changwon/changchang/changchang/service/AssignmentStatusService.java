@@ -1,5 +1,6 @@
 package kr.or.changwon.changchang.changchang.service;
 
+import kr.or.changwon.changchang.changchang.DTO.AssignmentStatusDTO;
 import kr.or.changwon.changchang.changchang.DTO.requestDTO.RequestAssignmentDTO;
 import kr.or.changwon.changchang.changchang.entity.AssignmentStatus;
 import kr.or.changwon.changchang.changchang.entity.Subject;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import jakarta.transaction.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AssignmentStatusService {
@@ -26,30 +28,18 @@ public class AssignmentStatusService {
         this.assignmentStatusRepository = assignmentStatusRepository;
     }
 
-    public List<AssignmentStatus> getAssignmentsByUserId(Long userId) {
-        return assignmentStatusRepository.findByUserId(userId);
-    }
-
-
-    // 특정 사용자에게 과제 생성
-    public void createAssignmentForUser(Long userId, String subjectName) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
-
-        Subject subject = subjectRepository.findByName(subjectName)
-                .orElseThrow(() -> new IllegalArgumentException("Subject not found"));
-
-        AssignmentStatus assignmentStatus = new AssignmentStatus();
-        assignmentStatus.setUser(user);
-        assignmentStatus.setSubject(subject);
-        assignmentStatus.setSubmitted(false);
-
-        assignmentStatusRepository.save(assignmentStatus);
+    public List<AssignmentStatusDTO> getAssignmentsByStudentId(String studentId) {
+        User user = userRepository.findByStudentId(studentId)
+            .orElseThrow(() -> new IllegalArgumentException("User not found"));
+        List<AssignmentStatus> assignmentStatus = assignmentStatusRepository.findByUserId(user.getId());
+        return assignmentStatus.stream()
+            .map(AssignmentStatusDTO::new)  // AssignmentStatus를 AssignmentStatusDTO로 변환
+            .collect(Collectors.toList());
     }
 
     // 특정 사용자에 대한 과제 제출 여부 조회
-    public List<AssignmentStatus> getAssignmentsWithStatus(Long userId) {
-        User user = userRepository.findById(userId)
+    public List<AssignmentStatus> getAssignmentsWithStatus(String studentId) {
+        User user = userRepository.findByStudentId(studentId)
             .orElseThrow(() -> new IllegalArgumentException("User not found"));
         
         return user.getAssignmentStatuses();
@@ -57,7 +47,7 @@ public class AssignmentStatusService {
     
     @Transactional
     public void addAssignment(RequestAssignmentDTO requestDto){
-        User user = userRepository.findById(requestDto.getUserId())
+        User user = userRepository.findByStudentId(requestDto.getStudentId())
             .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
         Subject subject = subjectRepository.findByName(requestDto.getSubjectName())
@@ -71,6 +61,7 @@ public class AssignmentStatusService {
         assignmentStatus.setUser(user);
         assignmentStatus.setSubject(subject);
         assignmentStatus.setSubmitted(false);
+        assignmentStatus.setDeadline(requestDto.getDeadline());
 
         assignmentStatusRepository.save(assignmentStatus);
     }

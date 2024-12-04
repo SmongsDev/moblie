@@ -39,9 +39,9 @@ public class UserController {
     
 
 
-    @GetMapping("/{userId}/subjects")
-    public ResponseEntity<List<SubjectDTO>> getSubjectsWithAssignmentStatus(@PathVariable Long userId) {
-        List<SubjectDTO> list = userService.getSubjectsWithAssignmentStatus(userId);
+    @GetMapping("/{studentId}/subjects")
+    public ResponseEntity<List<SubjectDTO>> getSubjectsWithAssignmentStatus(@PathVariable String studentId) {
+        List<SubjectDTO> list = userService.getSubjectsWithAssignmentStatus(studentId);
 
         return ResponseEntity.ok(list);
     }

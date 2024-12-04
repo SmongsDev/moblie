@@ -15,11 +15,7 @@ public class CharacterStatusDTO {
     private int intel;
     private int stress;
     private int happiness;
-    private int focus;    
-    private int timeManagement;  
-    private int leadership;
-    private int creativity;
-    private int socialSkills; 
+    private int focus;
     private int academicAbility; 
     private TitleDTO title;
 
@@ -30,11 +26,7 @@ public class CharacterStatusDTO {
         this.intel = characterStatus.getIntel();
         this.stress = characterStatus.getStress();
         this.happiness = characterStatus.getHappiness();  
-        this.focus = characterStatus.getFocus();          
-        this.timeManagement = characterStatus.getTimeManagement();
-        this.leadership = characterStatus.getLeadership();        
-        this.creativity = characterStatus.getCreativity(); 
-        this.socialSkills = characterStatus.getSocialSkills();
+        this.focus = characterStatus.getFocus();
         this.academicAbility = characterStatus.getAcademicAbility();
         this.title = new TitleDTO(characterStatus.getTitle());
     }

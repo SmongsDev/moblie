@@ -45,15 +45,17 @@ public class UserService implements UserDetailsService {
 
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username)
+    public UserDetails loadUserByUsername(String studentId) throws UsernameNotFoundException {
+        User user = userRepository.findByStudentId(studentId)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), 
                 List.of(new SimpleGrantedAuthority(user.getRole())));
     }
+
     @Transactional
     public User createUser(RequestCreateUserDTO requestDto) {
         User user = new User();
+        user.setStudentId(requestDto.getStudentId());
         user.setUsername(requestDto.getUsername());
         user.setPassword(passwordEncoder.encode(requestDto.getPassword()));
         user.setRole("ROLE_USER");
@@ -75,18 +77,14 @@ public class UserService implements UserDetailsService {
         characterStatus.setStress(0);
         characterStatus.setHappiness(50);
         characterStatus.setFocus(10);
-        characterStatus.setTimeManagement(10);
-        characterStatus.setLeadership(10);
-        characterStatus.setCreativity(10);
-        characterStatus.setSocialSkills(10);
         characterStatus.setAcademicAbility(10);
         characterStatus.setTitle(defaultTitle);
         return characterStatus;
     }
 
     @Transactional
-    public List<SubjectDTO> getSubjectsWithAssignmentStatus(Long userId) {
-        User user = userRepository.findById(userId)
+    public List<SubjectDTO> getSubjectsWithAssignmentStatus(String studentId) {
+        User user = userRepository.findByStudentId(studentId)
             .orElseThrow(() -> new RuntimeException("User not found"));
 
         return user.getAssignmentStatuses().stream()

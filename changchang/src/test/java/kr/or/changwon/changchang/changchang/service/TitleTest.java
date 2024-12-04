@@ -21,23 +21,6 @@ public class TitleTest {
         title1.setRarity("일반");
         title1.setConditions("기본 칭호");
 
-        Title title2 = new Title();
-        title2.setName("컴공 2과대");
-        title2.setDescription("모든 업적을 달성한 전설적인 존재");
-        title2.setRarity("희귀");
-        title2.setConditions("4과대의 지지를 받는 자");
-
-        Title title11 = new Title();
-        title11.setName("복학생");
-        title11.setDescription("대학 생활을 재개한 학생");
-        title11.setRarity("일반");
-        title11.setConditions("최소 1학기 이상 휴학 후 복학한 학생");
-
-        Title title12 = new Title();
-        title12.setName("과탑");
-        title12.setDescription("자신의 학과에서 학업 성적이 가장 뛰어난 학생. 과내에서 최고 성적을 기록한 자에게 부여되는 칭호.");
-        title12.setRarity("영웅");
-        title12.setConditions("학과에서 가장 높은 GPA를 보유한 학생");
 
         Title title3 = new Title();
         title3.setName("과대");
@@ -87,8 +70,43 @@ public class TitleTest {
         title10.setRarity("희든");
         title10.setConditions("CASPER 동아리의 회장직을 맡은 학생");
 
+        Title title11 = new Title();
+        title11.setName("복학생");
+        title11.setDescription("대학 생활을 재개한 학생");
+        title11.setRarity("일반");
+        title11.setConditions("최소 1학기 이상 휴학 후 복학한 학생");
+
+        Title title12 = new Title();
+        title12.setName("과탑");
+        title12.setDescription("자신의 학과에서 학업 성적이 가장 뛰어난 학생. 과내에서 최고 성적을 기록한 자에게 부여되는 칭호.");
+        title12.setRarity("영웅");
+        title12.setConditions("학과에서 가장 높은 GPA를 보유한 학생");
+
+        Title title13 = new Title();
+        title13.setName("컴공 1과대");
+        title13.setDescription("모든 업적을 달성한 전설적인 존재");
+        title13.setRarity("희귀");
+        title13.setConditions("4과대의 지지를 받는 자");
+        
+        Title title2 = new Title();
+        title2.setName("컴공 2과대");
+        title2.setDescription("모든 업적을 달성한 전설적인 존재");
+        title2.setRarity("희귀");
+        title2.setConditions("4과대의 지지를 받는 자");
+
+        Title title14 = new Title();
+        title14.setName("컴공 3과대");
+        title14.setDescription("모든 업적을 달성한 전설적인 존재");
+        title14.setRarity("희귀");
+        title14.setConditions("4과대의 지지를 받는 자");
+
+        Title title15 = new Title();
+        title15.setName("컴공 4과대");
+        title15.setDescription("모든 업적을 달성한 전설적인 존재");
+        title15.setRarity("희귀");
+        title15.setConditions("4과대의 지지를 받는 자");
+
         titleRepository.save(title1);
-        titleRepository.save(title2);
         titleRepository.save(title3);
         titleRepository.save(title4);
         titleRepository.save(title5);
@@ -99,6 +117,10 @@ public class TitleTest {
         titleRepository.save(title10);
         titleRepository.save(title11);
         titleRepository.save(title12);
+        titleRepository.save(title13);
+        titleRepository.save(title2);
+        titleRepository.save(title14);
+        titleRepository.save(title15);
     }
 
     @Test

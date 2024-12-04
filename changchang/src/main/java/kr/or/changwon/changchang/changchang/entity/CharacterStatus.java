@@ -21,10 +21,6 @@ public class CharacterStatus {
     private int stress;
     private int happiness;    // 행복도
     private int focus;        // 집중력
-    private int timeManagement;  // 시간 관리 능력
-    private int leadership;   // 리더십
-    private int creativity;   // 창의성
-    private int socialSkills; // 사회적 기술
     private int academicAbility;  // 학업 능력
     
     @ManyToOne

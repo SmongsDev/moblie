@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class RequestAssignmentDTO {
-    private Long userId;
+    private String studentId;
     private String subjectName; // 과목명
     private String deadline; // 마감일
 }

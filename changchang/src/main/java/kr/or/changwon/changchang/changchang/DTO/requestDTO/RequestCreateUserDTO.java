@@ -6,13 +6,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class RequestCreateUserDTO {
-    private Long id;
+    private String studentId;
     private String username;
     private String password;
 
-    public RequestCreateUserDTO(Long id, String username, String password) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-    }
 }

@@ -19,13 +19,9 @@ public class AssignmentStatusController {
         this.assignmentStatusService = assignmentStatusService;
     }
 
-    @GetMapping("/{userId}")
-    public ResponseEntity<List<AssignmentStatusDTO>> getUserAssignments(@PathVariable Long userId) {
-        List<AssignmentStatusDTO> res = assignmentStatusService.getAssignmentsByUserId(userId)
-            .stream()
-            .map(AssignmentStatusDTO::new)
-            .collect(Collectors.toList());
-
+    @GetMapping("/{studentId}")
+    public ResponseEntity<List<AssignmentStatusDTO>> getUserAssignments(@PathVariable String studentId) {
+        List<AssignmentStatusDTO> res = assignmentStatusService.getAssignmentsByStudentId(studentId);
         return ResponseEntity.ok(res);
     }
 
