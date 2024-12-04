@@ -5,8 +5,6 @@ import kr.or.changwon.changchang.changchang.service.CharacterStatusService;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
@@ -27,7 +25,7 @@ public class CharacterStatusController {
 
     @PostMapping("/{studentId}/status")
     public ResponseEntity<String> updateCharacterStatus(@PathVariable String studentId, @RequestBody RequestStatusDTO requestDto) {
-        
+        characterStatusService.updateCharacterStatus(studentId, requestDto);
         return ResponseEntity.ok("상태가 변경되었습니다.");
     }
     

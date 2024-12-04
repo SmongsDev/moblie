@@ -9,6 +9,8 @@ import kr.or.changwon.changchang.changchang.repository.CharacterStatusRepository
 import kr.or.changwon.changchang.changchang.repository.TitleRepository;
 import kr.or.changwon.changchang.changchang.repository.UserRepository;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
 @Service
@@ -42,21 +44,12 @@ public class CharacterStatusService {
         CharacterStatus characterStatus = characterStatusRepository.findById(user.getId())
             .orElseThrow(() -> new IllegalArgumentException("Character not found"));
 
-        // if (requestDto.getGrade() != null){
-        //     characterStatus.setGrade(requestDto.getGrade());
-        // }
-        // else if (requestDto.getStress() != null){
-        //     characterStatus.setFocus(requestDto.getFocus());
-        // }
-        // if (requestDto.getHappiness() != null){
-        //     characterStatus.setHappiness(requestDto.getHappiness());
-        // }
-        // if (requestDto.getFocus() != null){
-        //     characterStatus.setFocus(requestDto.getFocus());
-        // }
-        // if (requestDto.getAcademicAbility() != null){
-        //     characterStatus.setAcademicAbility(requestDto.getAcademicAbility());
-        // }
+        // Optional.ofNullable(requestDto.getGrade()).ifPresent(characterStatus::setGrade);
+        // Optional.ofNullable(requestDto.getStress()).ifPresent(characterStatus::setStress);
+        // Optional.ofNullable(requestDto.getHappiness()).ifPresent(characterStatus::setHappiness);
+        // Optional.ofNullable(requestDto.getFocus()).ifPresent(characterStatus::setFocus);
+        // Optional.ofNullable(requestDto.getAcademicAbility()).ifPresent(characterStatus::setAcademicAbility);
+        
         characterStatusRepository.save(characterStatus);
     }
 }

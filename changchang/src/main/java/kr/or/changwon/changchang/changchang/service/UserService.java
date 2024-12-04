@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
 import kr.or.changwon.changchang.changchang.DTO.CharacterStatusDTO;
+import kr.or.changwon.changchang.changchang.DTO.ResponseDTO.ResponseSubjectDTO;
 import kr.or.changwon.changchang.changchang.DTO.requestDTO.RequestCreateUserDTO;
 import kr.or.changwon.changchang.changchang.entity.CharacterStatus;
 import kr.or.changwon.changchang.changchang.entity.Subject;
@@ -38,7 +39,8 @@ public class UserService implements UserDetailsService {
 
     @Transactional
     public CharacterStatusDTO getCharacterStatusByUserId(String studentId) {
-        User user = userRepository.findByStudentId(studentId).orElseThrow(() -> new RuntimeException("User not found"));
+        User user = userRepository.findByStudentId(studentId)
+            .orElseThrow(() -> new RuntimeException("User not found"));
         
         CharacterStatus characterStatus = user.getCharacterStatus();
 
@@ -83,10 +85,15 @@ public class UserService implements UserDetailsService {
     }
 
     // 사용자가 수강 중인 과목 조회
-    public List<Subject> getSubjectsByUserId(Long userId) {
+    public List<ResponseSubjectDTO> getSubjectsByUserId(Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
-        return user.getSubjects();
+
+        List<ResponseSubjectDTO> responseDto = user.getSubjects().stream()
+                .map(subject -> new ResponseSubjectDTO(subject))
+                .collect(Collectors.toList());
+
+        return responseDto;
     }
 
     // 사용자가 새로운 과목 수강 등록

@@ -16,11 +16,13 @@ public class Subject {
     private Long id;
 
     private String name;
-    private String scheduleInfo; 
+    
+    @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Schedule> schedules = new ArrayList<>();
 
     @ManyToMany(mappedBy = "subjects")
     private List<User> users = new ArrayList<>();
-    
+
     @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL)
     private List<AssignmentStatus> assignmentStatuses = new ArrayList<>();
 }

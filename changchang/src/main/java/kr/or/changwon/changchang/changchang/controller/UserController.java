@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import kr.or.changwon.changchang.changchang.DTO.CharacterStatusDTO;
+import kr.or.changwon.changchang.changchang.DTO.ResponseDTO.ResponseSubjectDTO;
 import kr.or.changwon.changchang.changchang.DTO.requestDTO.RequestCreateUserDTO;
 import kr.or.changwon.changchang.changchang.entity.Subject;
 import kr.or.changwon.changchang.changchang.service.UserService;
@@ -40,8 +41,8 @@ public class UserController {
 
     // 사용자가 수강 중인 과목 조회
     @GetMapping("/{userId}/subjects")
-    public ResponseEntity<List<Subject>> getSubjects(@PathVariable Long userId) {
-        List<Subject> subjects = userService.getSubjectsByUserId(userId);
+    public ResponseEntity<List<ResponseSubjectDTO>> getSubjects(@PathVariable Long userId) {
+        List<ResponseSubjectDTO> subjects = userService.getSubjectsByUserId(userId);
         return ResponseEntity.ok(subjects);
     }
 
