@@ -7,11 +7,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
-import java.util.stream.Collectors;
-
 
 @RestController
-@RequestMapping("/assignments")
+@RequestMapping("/api/assignment")
 public class AssignmentStatusController {
     private final AssignmentStatusService assignmentStatusService;
 
@@ -30,5 +28,4 @@ public class AssignmentStatusController {
         assignmentStatusService.addAssignment(requestDto); 
         return ResponseEntity.ok("적용 완료");
     }
-
 }

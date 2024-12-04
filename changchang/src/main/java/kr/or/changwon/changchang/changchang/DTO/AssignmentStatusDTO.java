@@ -1,7 +1,5 @@
 package kr.or.changwon.changchang.changchang.DTO;
 
-import java.util.List;
-
 import kr.or.changwon.changchang.changchang.entity.AssignmentStatus;
 import lombok.Getter;
 

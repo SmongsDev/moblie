@@ -18,6 +18,9 @@ public class Subject {
     private String name;
     private String scheduleInfo; 
 
+    @ManyToMany(mappedBy = "subjects")
+    private List<User> users = new ArrayList<>();
+    
     @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL)
     private List<AssignmentStatus> assignmentStatuses = new ArrayList<>();
 }

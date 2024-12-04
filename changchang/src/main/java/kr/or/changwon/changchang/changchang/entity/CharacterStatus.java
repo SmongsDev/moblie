@@ -16,8 +16,6 @@ public class CharacterStatus {
     private Long id;
 
     private int grade;
-    private int health;
-    private int intel;
     private int stress;
     private int happiness;    // 행복도
     private int focus;        // 집중력

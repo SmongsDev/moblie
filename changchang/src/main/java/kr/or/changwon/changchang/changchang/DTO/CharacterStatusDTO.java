@@ -22,8 +22,6 @@ public class CharacterStatusDTO {
     public CharacterStatusDTO(User user, CharacterStatus characterStatus) {
         this.username = user.getUsername();
         this.grade = characterStatus.getGrade();
-        this.health = characterStatus.getHealth();
-        this.intel = characterStatus.getIntel();
         this.stress = characterStatus.getStress();
         this.happiness = characterStatus.getHappiness();  
         this.focus = characterStatus.getFocus();

@@ -12,12 +12,12 @@ import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
 import kr.or.changwon.changchang.changchang.DTO.CharacterStatusDTO;
-import kr.or.changwon.changchang.changchang.DTO.SubjectDTO;
 import kr.or.changwon.changchang.changchang.DTO.requestDTO.RequestCreateUserDTO;
-import kr.or.changwon.changchang.changchang.entity.AssignmentStatus;
 import kr.or.changwon.changchang.changchang.entity.CharacterStatus;
+import kr.or.changwon.changchang.changchang.entity.Subject;
 import kr.or.changwon.changchang.changchang.entity.Title;
 import kr.or.changwon.changchang.changchang.entity.User;
+import kr.or.changwon.changchang.changchang.repository.SubjectRepository;
 import kr.or.changwon.changchang.changchang.repository.TitleRepository;
 import kr.or.changwon.changchang.changchang.repository.UserRepository;
 
@@ -27,16 +27,18 @@ public class UserService implements UserDetailsService {
     private final TitleRepository titleRepository;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final SubjectRepository subjectRepository;
 
-    public UserService(TitleRepository titleRepository, UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(TitleRepository titleRepository, UserRepository userRepository, PasswordEncoder passwordEncoder, SubjectRepository subjectRepository) {
         this.titleRepository = titleRepository;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.subjectRepository = subjectRepository;
     }
 
     @Transactional
-    public CharacterStatusDTO getCharacterStatusByUserId(Long userId) {
-        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+    public CharacterStatusDTO getCharacterStatusByUserId(String studentId) {
+        User user = userRepository.findByStudentId(studentId).orElseThrow(() -> new RuntimeException("User not found"));
         
         CharacterStatus characterStatus = user.getCharacterStatus();
 
@@ -72,24 +74,30 @@ public class UserService implements UserDetailsService {
     private CharacterStatus createDefaultCharacterStatus(Title defaultTitle) {
         CharacterStatus characterStatus = new CharacterStatus();
         characterStatus.setGrade(1);
-        characterStatus.setIntel(10);
-        characterStatus.setHealth(100);
         characterStatus.setStress(0);
-        characterStatus.setHappiness(50);
-        characterStatus.setFocus(10);
+        characterStatus.setHappiness(100);
+        characterStatus.setFocus(50);
         characterStatus.setAcademicAbility(10);
         characterStatus.setTitle(defaultTitle);
         return characterStatus;
     }
 
-    @Transactional
-    public List<SubjectDTO> getSubjectsWithAssignmentStatus(String studentId) {
-        User user = userRepository.findByStudentId(studentId)
-            .orElseThrow(() -> new RuntimeException("User not found"));
+    // 사용자가 수강 중인 과목 조회
+    public List<Subject> getSubjectsByUserId(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        return user.getSubjects();
+    }
 
-        return user.getAssignmentStatuses().stream()
-            .map(status -> new SubjectDTO(status.getSubject(), status.isSubmitted()))
-            .collect(Collectors.toList());
+    // 사용자가 새로운 과목 수강 등록
+    public void addUserSubject(Long userId, Long subjectId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        Subject subject = subjectRepository.findById(subjectId)
+                .orElseThrow(() -> new RuntimeException("Subject not found"));
+
+        user.getSubjects().add(subject);
+        userRepository.save(user);
     }
 }
 
