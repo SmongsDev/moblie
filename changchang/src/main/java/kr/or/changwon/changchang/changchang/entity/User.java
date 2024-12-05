@@ -46,4 +46,7 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<AssignmentStatus> assignmentStatuses = new ArrayList<>();
+
+    @OneToMany
+    private List<ToDo> todoLists = new ArrayList<>();
 }

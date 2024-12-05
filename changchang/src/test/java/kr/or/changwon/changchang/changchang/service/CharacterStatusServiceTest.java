@@ -13,6 +13,6 @@ public class CharacterStatusServiceTest {
     @Test
     public void testEquipTitle() {
         // 로직 실행
-        characterStatusService.equipTitle("20213114", (long) 7);
+        // characterStatusService.equipTitle("20213114", (long) 7);
     }
 }

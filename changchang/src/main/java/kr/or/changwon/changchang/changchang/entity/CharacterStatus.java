@@ -14,7 +14,6 @@ public class CharacterStatus {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private int grade;
     private int stress;
     private int happiness;    // 행복도
