@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
 import kr.or.changwon.changchang.changchang.DTO.CharacterStatusDTO;
-import kr.or.changwon.changchang.changchang.DTO.ResponseDTO.ResponseSubjectDTO;
+import kr.or.changwon.changchang.changchang.DTO.SubjectDTO;
 import kr.or.changwon.changchang.changchang.DTO.requestDTO.RequestCreateUserDTO;
 import kr.or.changwon.changchang.changchang.entity.CharacterStatus;
 import kr.or.changwon.changchang.changchang.entity.Subject;
@@ -62,6 +62,7 @@ public class UserService implements UserDetailsService {
         user.setStudentId(requestDto.getStudentId());
         user.setUsername(requestDto.getUsername());
         user.setPassword(passwordEncoder.encode(requestDto.getPassword()));
+        user.setPoints((long) 100);
         user.setRole("ROLE_USER");
     
         Title defaultTitle = titleRepository.findByName("창대생")
@@ -85,20 +86,20 @@ public class UserService implements UserDetailsService {
     }
 
     // 사용자가 수강 중인 과목 조회
-    public List<ResponseSubjectDTO> getSubjectsByUserId(Long userId) {
-        User user = userRepository.findById(userId)
+    public List<SubjectDTO> getSubjectsByUserId(String studentId) {
+        User user = userRepository.findByStudentId(studentId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        List<ResponseSubjectDTO> responseDto = user.getSubjects().stream()
-                .map(subject -> new ResponseSubjectDTO(subject))
+        List<SubjectDTO> responseDto = user.getSubjects().stream()
+                .map(subject -> new SubjectDTO(subject))
                 .collect(Collectors.toList());
 
         return responseDto;
     }
 
     // 사용자가 새로운 과목 수강 등록
-    public void addUserSubject(Long userId, Long subjectId) {
-        User user = userRepository.findById(userId)
+    public void addUserSubject(String studentId, Long subjectId) {
+        User user = userRepository.findByStudentId(studentId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
         Subject subject = subjectRepository.findById(subjectId)
                 .orElseThrow(() -> new RuntimeException("Subject not found"));
@@ -107,4 +108,3 @@ public class UserService implements UserDetailsService {
         userRepository.save(user);
     }
 }
-

@@ -1,5 +1,7 @@
 package kr.or.changwon.changchang.changchang.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,6 +23,7 @@ public class Schedule {
 
     @ManyToOne
     @JoinColumn(name = "subject_id")
+    @JsonManagedReference // 순환 참조 방지
     private Subject subject;
 
 }

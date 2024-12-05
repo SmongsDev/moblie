@@ -10,9 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import kr.or.changwon.changchang.changchang.DTO.CharacterStatusDTO;
-import kr.or.changwon.changchang.changchang.DTO.ResponseDTO.ResponseSubjectDTO;
+import kr.or.changwon.changchang.changchang.DTO.SubjectDTO;
 import kr.or.changwon.changchang.changchang.DTO.requestDTO.RequestCreateUserDTO;
-import kr.or.changwon.changchang.changchang.entity.Subject;
 import kr.or.changwon.changchang.changchang.service.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,7 +24,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/{studentId}/character")
+    @GetMapping("/{studentId}")
     public ResponseEntity<CharacterStatusDTO> getCharacterStatus(@PathVariable String studentId) {
         CharacterStatusDTO characterStatusDTO = userService.getCharacterStatusByUserId(studentId);
         
@@ -40,16 +39,16 @@ public class UserController {
     }
 
     // 사용자가 수강 중인 과목 조회
-    @GetMapping("/{userId}/subjects")
-    public ResponseEntity<List<ResponseSubjectDTO>> getSubjects(@PathVariable Long userId) {
-        List<ResponseSubjectDTO> subjects = userService.getSubjectsByUserId(userId);
+    @GetMapping("/{studentId}/subjects")
+    public ResponseEntity<List<SubjectDTO>> getSubjects(@PathVariable String studentId) {
+        List<SubjectDTO> subjects = userService.getSubjectsByUserId(studentId);
         return ResponseEntity.ok(subjects);
     }
 
     // 사용자가 새로운 과목 등록
-    @PostMapping("/{userId}/subjects/{subjectId}")
-    public ResponseEntity<String> enrollSubject(@PathVariable Long userId, @PathVariable Long subjectId) {
-        userService.addUserSubject(userId, subjectId);
+    @PostMapping("/{studentId}/subjects/{subjectId}")
+    public ResponseEntity<String> enrollSubject(@PathVariable String studentId, @PathVariable Long subjectId) {
+        userService.addUserSubject(studentId, subjectId);
         return ResponseEntity.ok("과목 추가 완료");
     }
     

@@ -1,5 +1,8 @@
 package kr.or.changwon.changchang.changchang.DTO;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import kr.or.changwon.changchang.changchang.entity.Subject;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,10 +11,14 @@ import lombok.Setter;
 @Setter
 public class SubjectDTO {
     private String subjectName;
-    private boolean assignmentSubmitted;
+    private List<ScheduleDTO> schedules;
 
-    public SubjectDTO(Subject subject, boolean assignmentSubmitted) {
+
+    public SubjectDTO(Subject subject) {
         this.subjectName = subject.getName();
-        this.assignmentSubmitted = assignmentSubmitted;
+        
+        this.schedules = subject.getSchedules().stream()
+                .map(ScheduleDTO::new)
+                .collect(Collectors.toList());
     }
 }

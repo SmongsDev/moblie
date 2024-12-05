@@ -3,6 +3,8 @@ package kr.or.changwon.changchang.changchang.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,6 +20,7 @@ public class Subject {
     private String name;
     
     @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference // 순환 참조 방지
     private List<Schedule> schedules = new ArrayList<>();
 
     @ManyToMany(mappedBy = "subjects")

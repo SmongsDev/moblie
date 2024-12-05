@@ -126,6 +126,8 @@ public class SubjectServiceTest {
         schedule11.setEndTime("15:00");
         schedule11.setSubject(subj6);
         
+        subj6.getSchedules().add(schedule11);
+        
         subjectRepository.save(subj6);
 
     }
