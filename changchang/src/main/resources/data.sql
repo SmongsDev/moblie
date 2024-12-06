@@ -19,31 +19,31 @@ INSERT INTO title (name, description, rarity, conditions) VALUES
 ('컴공 4과대', '모든 업적을 달성한 전설적인 존재', '희귀', '4과대의 지지를 받는 자');
 
 -- subject table
-INSERT INTO subject (id, name) VALUES (1, '고급자료구조');
-INSERT INTO subject (id, name) VALUES (2, '모바일프로그래밍');
-INSERT INTO subject (id, name) VALUES (3, '논리설계');
-INSERT INTO subject (id, name) VALUES (4, '컴퓨터그래픽스');
-INSERT INTO subject (id, name) VALUES (5, '프로그래밍언어론');
-INSERT INTO subject (id, name) VALUES (6, '데이터베이스언어실습');
+INSERT INTO subject ( name) VALUES ('고급자료구조');
+INSERT INTO subject (name) VALUES ('모바일프로그래밍');
+INSERT INTO subject (name) VALUES ('논리설계');
+INSERT INTO subject (name) VALUES ('컴퓨터그래픽스');
+INSERT INTO subject (name) VALUES ('프로그래밍언어론');
+INSERT INTO subject (name) VALUES ('데이터베이스언어실습');
 
 -- Insert schedules
-INSERT INTO schedule (id, day_of_week, start_time, end_time, subject_id) VALUES 
-(1, 'Monday', '10:30', '12:00', 1),
-(2, 'Wednesday', '9:00', '10:30', 1);
-INSERT INTO schedule (id, day_of_week, start_time, end_time, subject_id) VALUES 
-(3, 'Monday', '10:30', '12:00', 2),
-(4, 'Wednesday', '14:00', '15:30', 2);
-INSERT INTO schedule (id, day_of_week, start_time, end_time, subject_id) VALUES 
-(5, 'Tuesday', '9:00', '10:30', 3),
-(6, 'Thursday', '10:30', '12:00', 3);
-INSERT INTO schedule (id, day_of_week, start_time, end_time, subject_id) VALUES 
-(7, 'Tuesday', '10:30', '12:00', 4),
-(8, 'Thursday', '9:00', '10:30', 4);
-INSERT INTO schedule (id, day_of_week, start_time, end_time, subject_id) VALUES 
-(9, 'Tuesday', '15:00', '16:30', 5),
-(10, 'Thursday', '16:30', '18:00', 5);
-INSERT INTO schedule (id, day_of_week, start_time, end_time, subject_id) VALUES 
-(11, 'Friday', '12:00', '15:00', 6);
+INSERT INTO schedule (day_of_week, start_time, end_time, subject_id) VALUES 
+('Monday', '10:30', '12:00', 1),
+('Wednesday', '9:00', '10:30', 1);
+INSERT INTO schedule (day_of_week, start_time, end_time, subject_id) VALUES 
+('Monday', '10:30', '12:00', 2),
+('Wednesday', '14:00', '15:30', 2);
+INSERT INTO schedule (day_of_week, start_time, end_time, subject_id) VALUES 
+('Tuesday', '9:00', '10:30', 3),
+('Thursday', '10:30', '12:00', 3);
+INSERT INTO schedule (day_of_week, start_time, end_time, subject_id) VALUES 
+('Tuesday', '10:30', '12:00', 4),
+('Thursday', '9:00', '10:30', 4);
+INSERT INTO schedule (day_of_week, start_time, end_time, subject_id) VALUES 
+('Tuesday', '15:00', '16:30', 5),
+('Thursday', '16:30', '18:00', 5);
+INSERT INTO schedule (day_of_week, start_time, end_time, subject_id) VALUES 
+('Friday', '12:00', '15:00', 6);
 
 
 -- department table
@@ -63,23 +63,23 @@ INSERT INTO department (name, crawl_url, link_pattern) VALUES ('메카융합공�
 
 
 -- create User
-INSERT INTO user (id, student_id, username, password, role, points, character_status_id) VALUES
-(1, '20213114', '윤영필', 'test99', 'USER', 100, NULL);
+INSERT INTO user (student_id, username, password, role, points, character_status_id) VALUES
+('20213114', '윤영필', 'test99', 'USER', 100, NULL);
 INSERT INTO user_subject (user_id, subject_id) VALUES
 (1, 1), -- 윤영필이 '고급자료구조' 수강
 (1, 2), -- 윤영필이 '모바일프로그래밍' 수강
 (1, 3);
-INSERT INTO assignment_status (id, user_id, subject_id, submitted, deadline) VALUES
-(1, 1, 1, TRUE, '2024-12-10 23:59:59'), -- 윤영필이 '고급자료구조' 과제를 제출
-(2, 1, 2, FALSE, '2024-12-15 23:59:59'); -- 윤영필이 '모바일프로그래밍' 과제를 제출하지 않음
-INSERT INTO to_do (id, content, user_id) VALUES
-(1, '고급자료구조 과제 완료', 1), -- 윤영필의 ToDo 리스트 항목
-(2, '모바일프로그래밍 발표 준비', 1);
+INSERT INTO assignment_status (user_id, subject_id, submitted, deadline) VALUES
+(1, 1, TRUE, '2024-12-10 23:59:59'), -- 윤영필이 '고급자료구조' 과제를 제출
+(1, 2, FALSE, '2024-12-15 23:59:59'); -- 윤영필이 '모바일프로그래밍' 과제를 제출하지 않음
+INSERT INTO to_do (content, user_id) VALUES
+('고급자료구조 과제 완료', 1), -- 윤영필의 ToDo 리스트 항목
+('모바일프로그래밍 발표 준비', 1);
 
-INSERT INTO character_status (id, grade, stress, happiness, focus, academic_ability, current_title_id) VALUES
-(1, 2, 0, 100, 50, 50, 1);
+INSERT INTO character_status (grade, stress, happiness, focus, academic_ability, current_title_id) VALUES
+(2, 0, 100, 50, 50, 1);
 UPDATE user 
 SET character_status_id = 1
 WHERE id = 1;
-INSERT INTO character_title (id, owned, in_use, character_status_id, title_id) 
-VALUES (1, TRUE, TRUE, 1, 1);
+INSERT INTO character_title (owned, in_use, character_status_id, title_id) 
+VALUES (TRUE, TRUE, 1, 1);
