@@ -5,8 +5,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class RequestCreateUserDTO {
-    private String studentId;
-    private String username;
-    private String password;
+public class RequestPointsDTO {
+    private Long points;
 }

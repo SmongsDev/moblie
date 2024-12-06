@@ -1,7 +1,6 @@
 package kr.or.changwon.changchang.changchang.service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -47,7 +46,7 @@ public class TodoService {
                     TodoDTO dto = new TodoDTO();
                     dto.setId(todo.getId());
                     dto.setContent(todo.getContent());
-                    dto.setUsername(todo.getUser().getUsername());
+                    dto.setStudentId(studentId);
                     return dto;
                 })
                 .collect(Collectors.toList());

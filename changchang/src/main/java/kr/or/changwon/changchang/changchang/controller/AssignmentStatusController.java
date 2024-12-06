@@ -28,4 +28,11 @@ public class AssignmentStatusController {
         assignmentStatusService.addAssignment(requestDto); 
         return ResponseEntity.ok("적용 완료");
     }
+
+    @DeleteMapping("/{assignmentId}")
+    public ResponseEntity<String> deleteAssignment(@PathVariable Long assignmentId){
+        assignmentStatusService.deleteAssignment(assignmentId);
+        return ResponseEntity.ok("과제 삭제 정공");
+    }
+
 }

@@ -14,12 +14,14 @@ import jakarta.transaction.Transactional;
 import kr.or.changwon.changchang.changchang.DTO.CharacterStatusDTO;
 import kr.or.changwon.changchang.changchang.DTO.SubjectDTO;
 import kr.or.changwon.changchang.changchang.DTO.requestDTO.RequestCreateUserDTO;
+import kr.or.changwon.changchang.changchang.DTO.requestDTO.RequestPointsDTO;
 import kr.or.changwon.changchang.changchang.entity.CharacterStatus;
 import kr.or.changwon.changchang.changchang.entity.Subject;
 import kr.or.changwon.changchang.changchang.entity.Title;
 import kr.or.changwon.changchang.changchang.entity.User;
 import kr.or.changwon.changchang.changchang.repository.SubjectRepository;
 import kr.or.changwon.changchang.changchang.repository.TitleRepository;
+import kr.or.changwon.changchang.changchang.repository.TodoRepository;
 import kr.or.changwon.changchang.changchang.repository.UserRepository;
 
 @Service
@@ -29,12 +31,14 @@ public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final SubjectRepository subjectRepository;
+    private final TodoRepository todoRepository;
 
-    public UserService(TitleRepository titleRepository, UserRepository userRepository, PasswordEncoder passwordEncoder, SubjectRepository subjectRepository) {
+    public UserService(TitleRepository titleRepository, UserRepository userRepository, PasswordEncoder passwordEncoder, SubjectRepository subjectRepository, TodoRepository todoRepository) {
         this.titleRepository = titleRepository;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.subjectRepository = subjectRepository;
+        this.todoRepository = todoRepository;
     }
 
     @Transactional
@@ -44,7 +48,9 @@ public class UserService implements UserDetailsService {
         
         CharacterStatus characterStatus = user.getCharacterStatus();
 
-        return new CharacterStatusDTO(user, characterStatus);
+        List<Title> allTitles = titleRepository.findAll();
+
+        return new CharacterStatusDTO(user, characterStatus, allTitles);
     }
 
 
@@ -61,7 +67,8 @@ public class UserService implements UserDetailsService {
         User user = new User();
         user.setStudentId(requestDto.getStudentId());
         user.setUsername(requestDto.getUsername());
-        user.setPassword(passwordEncoder.encode(requestDto.getPassword()));
+        // user.setPassword(passwordEncoder.encode(requestDto.getPassword()));
+        user.setPassword(requestDto.getPassword());
         user.setPoints((long) 100);
         user.setRole("ROLE_USER");
     
@@ -106,5 +113,15 @@ public class UserService implements UserDetailsService {
 
         user.getSubjects().add(subject);
         userRepository.save(user);
+    }
+
+    // 사용자 points 변경
+    public Long updatePoints(String studentId, RequestPointsDTO requestDto){
+        User user = userRepository.findByStudentId(studentId)
+            .orElseThrow(() -> new IllegalArgumentException("User not found"));
+        Long point = user.getPoints() + requestDto.getPoints(); 
+        user.setPoints(point);
+        userRepository.save(user);
+        return point;
     }
 }

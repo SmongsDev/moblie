@@ -21,14 +21,14 @@ public class SubjectServiceTest {
         
         Schedule schedule1 = new Schedule();
         schedule1.setDayOfWeek("Monday");
-        schedule1.setStartTime("10:00");
-        schedule1.setEndTime("11:30");
+        schedule1.setStartTime("10:30");
+        schedule1.setEndTime("12:00");
         schedule1.setSubject(subj1);
         
         Schedule schedule2 = new Schedule();
         schedule2.setDayOfWeek("Wednesday");
-        schedule2.setStartTime("14:00");
-        schedule2.setEndTime("15:30");
+        schedule2.setStartTime("9:00");
+        schedule2.setEndTime("10:30");
         schedule2.setSubject(subj1);
 
         subj1.getSchedules().add(schedule1);
@@ -42,8 +42,8 @@ public class SubjectServiceTest {
         
         Schedule schedule3 = new Schedule();
         schedule3.setDayOfWeek("Monday");
-        schedule3.setStartTime("10:00");
-        schedule3.setEndTime("11:30");
+        schedule3.setStartTime("10:30");
+        schedule3.setEndTime("12:00");
         schedule3.setSubject(subj2);
         
         Schedule schedule4 = new Schedule();

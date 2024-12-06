@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import kr.or.changwon.changchang.changchang.DTO.CharacterStatusDTO;
 import kr.or.changwon.changchang.changchang.DTO.SubjectDTO;
 import kr.or.changwon.changchang.changchang.DTO.requestDTO.RequestCreateUserDTO;
+import kr.or.changwon.changchang.changchang.DTO.requestDTO.RequestPointsDTO;
 import kr.or.changwon.changchang.changchang.service.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,7 +28,6 @@ public class UserController {
     @GetMapping("/{studentId}")
     public ResponseEntity<CharacterStatusDTO> getCharacterStatus(@PathVariable String studentId) {
         CharacterStatusDTO characterStatusDTO = userService.getCharacterStatusByUserId(studentId);
-        
         return ResponseEntity.ok(characterStatusDTO);
     }
 
@@ -50,6 +50,12 @@ public class UserController {
     public ResponseEntity<String> enrollSubject(@PathVariable String studentId, @PathVariable Long subjectId) {
         userService.addUserSubject(studentId, subjectId);
         return ResponseEntity.ok("과목 추가 완료");
+    }
+
+    // 사용자의 포인터 변경
+    @PostMapping("/{studentId}/points")
+    public ResponseEntity<String> updateUserpoints(@PathVariable String studentId, @RequestBody RequestPointsDTO requestDto){
+        return ResponseEntity.ok("현재 사용자의 포인터는 " + userService.updatePoints(studentId, requestDto));
     }
     
 }

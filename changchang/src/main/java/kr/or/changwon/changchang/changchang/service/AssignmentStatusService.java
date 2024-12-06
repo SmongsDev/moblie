@@ -33,7 +33,7 @@ public class AssignmentStatusService {
             .orElseThrow(() -> new IllegalArgumentException("User not found"));
         List<AssignmentStatus> assignmentStatus = assignmentStatusRepository.findByUserId(user.getId());
         return assignmentStatus.stream()
-            .map(AssignmentStatusDTO::new)  // AssignmentStatus를 AssignmentStatusDTO로 변환
+            .map(AssignmentStatusDTO::new)
             .collect(Collectors.toList());
     }
 
@@ -64,5 +64,13 @@ public class AssignmentStatusService {
         assignmentStatus.setDeadline(requestDto.getDeadline());
 
         assignmentStatusRepository.save(assignmentStatus);
+    }
+
+    // 과제 삭제
+    @Transactional
+    public void deleteAssignment(Long assignmentId){
+        AssignmentStatus assignment = assignmentStatusRepository.findById(assignmentId)
+            .orElseThrow(() -> new IllegalArgumentException("Assignment not found"));
+        assignmentStatusRepository.delete(assignment);
     }
 }

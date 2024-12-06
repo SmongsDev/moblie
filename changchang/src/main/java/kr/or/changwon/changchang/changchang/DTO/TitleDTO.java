@@ -12,7 +12,6 @@ public class TitleDTO {
     private String rarity;
     private String conditions;
 
-
     public TitleDTO(Title title) {
         this.name = title.getName();
         this.description = title.getDescription();
