@@ -16,6 +16,7 @@ import kr.or.changwon.changchang.changchang.DTO.SubjectDTO;
 import kr.or.changwon.changchang.changchang.DTO.requestDTO.RequestCreateUserDTO;
 import kr.or.changwon.changchang.changchang.DTO.requestDTO.RequestPointsDTO;
 import kr.or.changwon.changchang.changchang.entity.CharacterStatus;
+import kr.or.changwon.changchang.changchang.entity.CharacterTitle;
 import kr.or.changwon.changchang.changchang.entity.Subject;
 import kr.or.changwon.changchang.changchang.entity.Title;
 import kr.or.changwon.changchang.changchang.entity.User;
@@ -63,7 +64,7 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public User createUser(RequestCreateUserDTO requestDto) {
+    public void createUser(RequestCreateUserDTO requestDto) {
         User user = new User();
         user.setStudentId(requestDto.getStudentId());
         user.setUsername(requestDto.getUsername());
@@ -71,14 +72,25 @@ public class UserService implements UserDetailsService {
         user.setPassword(requestDto.getPassword());
         user.setPoints((long) 100);
         user.setRole("ROLE_USER");
-    
-        Title defaultTitle = titleRepository.findByName("창대생")
+
+        Title defaultTitle = titleRepository.findById(1L)
             .orElseThrow(() -> new IllegalArgumentException("기본 칭호를 찾을 수 없습니다."));
-            
-        CharacterStatus characterStatus = createDefaultCharacterStatus(defaultTitle);
-        user.setCharacterStatus(characterStatus);
     
-        return userRepository.save(user);
+        CharacterStatus characterStatus = createDefaultCharacterStatus(defaultTitle);
+
+        // CharacterTitle 설정
+        CharacterTitle characterTitle = new CharacterTitle();
+        characterTitle.setOwned(true);  // 칭호 소유 여부
+        characterTitle.setInUse(true);  // 칭호 사용 중 여부
+        characterTitle.setCharacterStatus(characterStatus);
+        characterTitle.setTitle(defaultTitle);
+
+        // CharacterStatus에 CharacterTitle 추가
+        characterStatus.getCharacterTitles().add(characterTitle);
+
+        // User에 CharacterStatus 설정
+        user.setCharacterStatus(characterStatus);
+        userRepository.save(user);
     }
     
     private CharacterStatus createDefaultCharacterStatus(Title defaultTitle) {

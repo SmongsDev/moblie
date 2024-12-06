@@ -2,10 +2,11 @@ spring:
     application:
         name: changchang
     datasource:
-        url: jdbc:mysql://localhost:3306/chang?characterEncoding=UTF-8&serverTimezone=UTC
+        url: jdbc:mysql://localhost:3306/chang?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
         username: root
         password: smongs1102
         driver-class-name: com.mysql.cj.jdbc.Driver
+        # initialize: false
     jpa:
         hibernate:
             ddl-auto: update
@@ -14,6 +15,10 @@ spring:
             hibernate.format_sql: true
         dialect:
             org.hibernate.dialect.MySQLDialect
+    sql:
+        init:
+            mode: always
+            encoding: UTF-8
 
 server:
     port: 8080

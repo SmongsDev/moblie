@@ -46,7 +46,7 @@ public class SubjectService {
         return subjectRepository.save(subject);
     }
 
-    // 특정 Subject 조회
+    // 유저의 Subject 조회
     @Transactional
     public SubjectDTO getSubjectById(Long subjectId) {
         Subject subject = subjectRepository.findById(subjectId)

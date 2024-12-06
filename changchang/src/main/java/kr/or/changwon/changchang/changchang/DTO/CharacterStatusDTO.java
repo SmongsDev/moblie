@@ -16,8 +16,6 @@ public class CharacterStatusDTO {
     private String username;
     private String password;
     private int grade;
-    private int health;
-    private int intel;
     private int stress;
     private int happiness;
     private int focus;

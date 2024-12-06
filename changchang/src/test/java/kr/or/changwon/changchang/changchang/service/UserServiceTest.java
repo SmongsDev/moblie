@@ -3,6 +3,7 @@ package kr.or.changwon.changchang.changchang.service;
 import kr.or.changwon.changchang.changchang.DTO.requestDTO.RequestAssignmentDTO;
 import kr.or.changwon.changchang.changchang.DTO.requestDTO.RequestCreateUserDTO;
 import kr.or.changwon.changchang.changchang.DTO.requestDTO.RequestTodoDTO;
+import kr.or.changwon.changchang.changchang.entity.User;
 import kr.or.changwon.changchang.changchang.repository.TodoRepository;
 
 import org.junit.jupiter.api.Test;
@@ -24,7 +25,7 @@ public class UserServiceTest {
     private AssignmentStatusService assignmentStatusService;
 
     private String studentId = "20213115";
-    private String username = "이관호";
+    private String username = "윤영필";
     private String password = "testpassword";
     private String content = "또 영필이야?";
 
