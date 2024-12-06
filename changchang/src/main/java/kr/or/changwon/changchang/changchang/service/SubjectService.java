@@ -16,7 +16,7 @@ import kr.or.changwon.changchang.changchang.repository.SubjectRepository;
 public class SubjectService {
 
     private final SubjectRepository subjectRepository;
-    // private final ScheduleRepository scheduleRepository;
+    private final ScheduleRepository scheduleRepository;
 
     public SubjectService(SubjectRepository subjectRepository, ScheduleRepository scheduleRepository) {
         this.subjectRepository = subjectRepository;
