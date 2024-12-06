@@ -16,6 +16,8 @@ import kr.or.changwon.changchang.changchang.DTO.requestDTO.RequestPointsDTO;
 import kr.or.changwon.changchang.changchang.service.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 @RestController
@@ -56,6 +58,12 @@ public class UserController {
     @PostMapping("/{studentId}/points")
     public ResponseEntity<String> updateUserpoints(@PathVariable String studentId, @RequestBody RequestPointsDTO requestDto){
         return ResponseEntity.ok("현재 사용자의 포인터는 " + userService.updatePoints(studentId, requestDto));
+    }
+    
+    @GetMapping("/{studentId}/points")
+    public ResponseEntity<Long> getMethodName(@PathVariable String studentId) {
+        Long point = userService.getPoints(studentId);
+        return ResponseEntity.ok(point);
     }
     
 }

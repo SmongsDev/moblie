@@ -28,7 +28,7 @@ public class NoticeService {
 		this.departmentRepository = departmentRepository;
 	}
 
-	@Scheduled(fixedRate = 600000) // 일단 10분 간격
+	@Scheduled(cron = "0 0 0 * * ?") // 매일 자정 기준
 	public void scheduledCrawlAndSaveNotices() {
 		crawlAndSaveNotices();
 	}

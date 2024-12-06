@@ -136,4 +136,11 @@ public class UserService implements UserDetailsService {
         userRepository.save(user);
         return point;
     }
+
+    public Long getPoints(String studentId){
+        User user = userRepository.findByStudentId(studentId)
+            .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        return user.getPoints();
+    }
 }
