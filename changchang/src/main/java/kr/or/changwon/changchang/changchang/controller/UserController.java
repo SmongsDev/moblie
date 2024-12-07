@@ -16,9 +16,6 @@ import kr.or.changwon.changchang.changchang.DTO.requestDTO.RequestPointsDTO;
 import kr.or.changwon.changchang.changchang.service.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-
-
 
 @RestController
 @RequestMapping("/api/user")
