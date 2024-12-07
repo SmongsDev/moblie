@@ -50,6 +50,12 @@ public class CharacterStatusService {
         CharacterStatus characterStatus = characterStatusRepository.findById(user.getId())
             .orElseThrow(() -> new IllegalArgumentException("Character not found"));
 
+        characterStatus.setGrade(requestDto.getGrade());
+        characterStatus.setStress(requestDto.getStress());
+        characterStatus.setHappiness(requestDto.getHappiness());
+        characterStatus.setFocus(requestDto.getFocus());
+        characterStatus.setAcademicAbility(requestDto.getAcademicAbility());
+        
         // Optional.ofNullable(requestDto.getGrade()).ifPresent(characterStatus::setGrade);
         // Optional.ofNullable(requestDto.getStress()).ifPresent(characterStatus::setStress);
         // Optional.ofNullable(requestDto.getHappiness()).ifPresent(characterStatus::setHappiness);

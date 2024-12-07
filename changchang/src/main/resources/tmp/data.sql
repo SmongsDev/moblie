@@ -13,10 +13,10 @@ INSERT INTO title (name, description, rarity, conditions) VALUES
 ('CASPER 회장', '모든 동아리를 압도하는 CASPER 내에서 가장 높은 직책을 맡고 있는 학생. 창원대의 얼굴이 보통 해당 역할을 부여받는다.', '희든', 'CASPER 동아리의 회장직을 맡은 학생'),
 ('복학생', '대학 생활을 재개한 학생', '일반', '최소 1학기 이상 휴학 후 복학한 학생'),
 ('과탑', '자신의 학과에서 학업 성적이 가장 뛰어난 학생. 과내에서 최고 성적을 기록한 자에게 부여되는 칭호.', '영웅', '학과에서 가장 높은 GPA를 보유한 학생'),
-('컴공 1과대', '모든 업적을 달성한 전설적인 존재', '희귀', '4과대의 지지를 받는 자'),
+('컴공 1과대', '학과를 위해 헌신하며 지지를 받는 존재.', '희귀', '학과 활동을 주도하며 모든 학생의 존경을 받는 자'),
 ('컴공 2과대', '모든 업적을 달성한 전설적인 존재', '희귀', '4과대의 지지를 받는 자'),
-('컴공 3과대', '모든 업적을 달성한 전설적인 존재', '희귀', '4과대의 지지를 받는 자'),
-('컴공 4과대', '모든 업적을 달성한 전설적인 존재', '희귀', '4과대의 지지를 받는 자');
+('컴공 3과대', '학과의 조화를 이끄는 중추적인 존재.', '희귀', '학생 간의 화합을 이끌며 학과의 성장을 돕는 자'),
+('컴공 4과대', '학과를 대표하는 상징적인 지도자.', '희귀', '학과의 미래를 설계하고 이끌어가는 자');
 
 -- subject table
 INSERT INTO subject ( name) VALUES ('고급자료구조');
@@ -65,21 +65,47 @@ INSERT INTO department (name, crawl_url, link_pattern) VALUES ('메카융합공�
 -- create User
 INSERT INTO user (student_id, username, password, role, points, character_status_id) VALUES
 ('20213114', '윤영필', 'test99', 'USER', 100, NULL);
+INSERT INTO user (student_id, username, password, role, points, character_status_id) VALUES
+('20213115', '이관호', 'front', 'USER', 500, NULL);
 INSERT INTO user_subject (user_id, subject_id) VALUES
 (1, 1), -- 윤영필이 '고급자료구조' 수강
 (1, 2), -- 윤영필이 '모바일프로그래밍' 수강
-(1, 3);
+(1, 3),
+(1, 4),
+(1, 5),
+(1, 6),
+(2, 1),
+(2, 2),
+(2, 3),
+(2, 4),
+(2, 5),
+(2, 6);
 INSERT INTO assignment_status (user_id, subject_id, submitted, deadline) VALUES
 (1, 1, TRUE, '2024-12-10 23:59:59'), -- 윤영필이 '고급자료구조' 과제를 제출
-(1, 2, FALSE, '2024-12-15 23:59:59'); -- 윤영필이 '모바일프로그래밍' 과제를 제출하지 않음
+(1, 2, FALSE, '2024-12-15 23:59:59'), -- 윤영필이 '모바일프로그래밍' 과제를 제출하지 않음
+(2, 2, FALSE, '2024-12-15 23:59:59'),
+(2, 4, FALSE, '2024-12-12 23:59:59'); 
+
 INSERT INTO to_do (content, user_id) VALUES
 ('고급자료구조 과제 완료', 1), -- 윤영필의 ToDo 리스트 항목
-('모바일프로그래밍 발표 준비', 1);
+('모바일프로그래밍 크롤링 준비', 1),
+('모바일프로그래밍 발표 준비', 2);
 
 INSERT INTO character_status (grade, stress, happiness, focus, academic_ability, current_title_id) VALUES
 (2, 0, 100, 50, 50, 1);
 UPDATE user 
 SET character_status_id = 1
 WHERE id = 1;
-INSERT INTO character_title (owned, in_use, character_status_id, title_id) 
-VALUES (TRUE, TRUE, 1, 1);
+
+
+INSERT INTO character_status (grade, stress, happiness, focus, academic_ability, current_title_id) VALUES
+(2, 20, 100, 30, 50, 13);
+UPDATE user 
+SET character_status_id = 2
+WHERE id = 2;
+
+INSERT INTO character_title (owned, in_use, character_status_id, title_id) VALUES 
+(TRUE, TRUE, 1, 1),
+(TRUE, FALSE, 1, 7),
+(TRUE, FALSE, 2, 1),
+(TRUE, TRUE, 2, 13);
